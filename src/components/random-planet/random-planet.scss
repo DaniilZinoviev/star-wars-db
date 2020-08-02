@@ -1,0 +1,19 @@
+.random-planet {
+  padding: 1.5rem 1rem;
+  border: 1px solid #444;
+  transition: opacity 0.15s ease-in-out;
+  &.loading {
+    opacity: 0.8;
+  }
+  .planet-img {
+    border-radius: 1em;
+    max-width: 200px;
+  }
+  .list-group {
+    .list-group-item {
+      padding: 0.50rem 1.25rem;
+      border-left: 0;
+      border-right: 0;
+    }
+  }
+}

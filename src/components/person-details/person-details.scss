@@ -1,0 +1,16 @@
+.person-details {
+  padding: 1.5rem 1rem;
+  background: #303030;
+  border: 1px solid #444;
+  border-radius: .25rem;
+  .person-image {
+    max-width: 200px;
+  }
+  .list-group {
+    .list-group-item {
+      border-left: 0;
+      border-right: 0;
+      padding: 0.50rem 1.25rem;
+    }
+  }
+}
