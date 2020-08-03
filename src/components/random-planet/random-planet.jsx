@@ -6,8 +6,9 @@ import ErrorIndicator from "../error-indicator/error-indicator";
 import "./random-planet.scss";
 
 class RandomPlanet extends Component {
-  swapiService = new SwapiService();
 
+  swapiService = new SwapiService();
+  interval = null;
   state = {
     isLoading: true,
     hasError: false,
@@ -20,11 +21,13 @@ class RandomPlanet extends Component {
     },
   };
 
-  constructor() {
-    super();
-
+  componentDidMount() {
     this.updatePlanet();
-    setInterval(() => this.updatePlanet(), 10000);
+    this.interval = setInterval(() => this.updatePlanet(), 2500);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   onPlanetLoaded(planet) {
@@ -35,7 +38,7 @@ class RandomPlanet extends Component {
   }
 
   onError(error) {
-    console.log(`Error handled in Random planet`, error);
+    clearInterval(this.interval);
     this.setState({
       hasError: true,
       isLoading: false,
@@ -43,6 +46,7 @@ class RandomPlanet extends Component {
   }
 
   updatePlanet() {
+    // Get random planet id
     let id = Math.floor(Math.random() * 13) + 2;
     this.swapiService
       .getPlanet(id)
@@ -51,17 +55,18 @@ class RandomPlanet extends Component {
   }
 
   render() {
+    console.log("render()");
     const { planet, isLoading, hasError } = this.state;
 
     let wrapClass = "random-planet jumbotron";
     if (isLoading) {
-      wrapClass += " loading";
+      wrapClass   += " loading";
     }
 
-    const showView = !(isLoading || hasError);
-    const errorIndicator = hasError ? <ErrorIndicator /> : null;
-    const spinner = isLoading ? <Spinner /> : null;
-    const content = showView ? <PlanetView planet={planet} /> : null;
+    const showView        = !(isLoading || hasError);
+    const errorIndicator  = hasError  ? <ErrorIndicator />              : null;
+    const spinner         = isLoading ? <Spinner />                     : null;
+    const content         = showView  ? <PlanetView planet={planet} />  : null;
 
     return (
       <div className={wrapClass}>
