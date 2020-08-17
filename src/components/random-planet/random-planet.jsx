@@ -55,7 +55,6 @@ class RandomPlanet extends Component {
   }
 
   render() {
-    console.log("render()");
     const { planet, isLoading, hasError } = this.state;
 
     let wrapClass = "random-planet jumbotron";

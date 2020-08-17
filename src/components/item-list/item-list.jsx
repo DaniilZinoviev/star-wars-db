@@ -19,8 +19,8 @@ class ItemList extends Component {
 
   render() {
     const { itemList } = this.state;
-    const { onChangeSelected, renderItem } = this.props;
-
+    const { onChangeSelected } = this.props;
+    const label = this.props.children;
     if (!itemList) {
       return <Spinner />;
     }
@@ -34,7 +34,8 @@ class ItemList extends Component {
               key={item.id}
               onClick={() => onChangeSelected(item.id)}
             >
-              {renderItem(item)}
+              {label(item)}
+              
             </li>
           ))}
         </ul>

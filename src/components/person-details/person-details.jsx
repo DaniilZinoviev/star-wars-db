@@ -2,7 +2,8 @@ import React from "react";
 
 import "./person-details.scss";
 
-const testSrc = "https://vignette.wikia.nocookie.net/starwars/images/e/eb/ArtooTFA2-Fathead.png/revision/latest?cb=20161108040914";
+const testSrc =
+  "https://vignette.wikia.nocookie.net/starwars/images/e/eb/ArtooTFA2-Fathead.png/revision/latest?cb=20161108040914";
 
 const PersonDetails = () => {
   return (
