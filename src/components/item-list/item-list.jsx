@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 import "./item-list.scss";
-import SwapiService from "../../services/SwapiService";
 import Spinner from "../spinner/spinner";
 
 class ItemList extends Component {
@@ -10,11 +9,12 @@ class ItemList extends Component {
   };
 
   componentDidMount() {
-    this.props.getData().then((items) => {
-      this.setState({
-        itemList: items.slice(0, 6), // Trim to 6 peoples
-      });
-    });
+    this.props.getData()
+        .then((items) => {
+          this.setState({
+            itemList: items.slice(0, 6), // Trim to 6 peoples
+          });
+        });
   }
 
   render() {

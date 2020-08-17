@@ -4,7 +4,7 @@ import "./app.scss";
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ItemList from "../item-list/item-list";
-import PersonDetails from "../person-details/person-details";
+import ItemDetails from "../item-details/item-details";
 import SwapiService from "../../services/SwapiService";
 import ErrorBoundary from "../error-boundary/error-boundary";
 import Row from "../row/row";
@@ -14,7 +14,7 @@ class App extends Component {
 
   state = {
     showRandomPlanet: true,
-    selectedPerson: null,
+    selectedId: null,
   };
 
   toggleRandomPlanet() {
@@ -25,11 +25,18 @@ class App extends Component {
 
   onChangeSelected(id) {
     this.setState({
-      selectedPerson: id,
+      selectedId: id,
     });
   }
 
   render() {
+    const {
+      getPerson,
+      getPersonImage,
+      getSpaceship,
+      getSpaceshipImage,
+    } = this.swapiService;
+
     const itemList = (
       <ItemList
         onChangeSelected={(id) => this.onChangeSelected(id)}
@@ -42,9 +49,12 @@ class App extends Component {
         )}
       </ItemList>
     );
-
     const details = (
-      <PersonDetails selectedPerson={this.state.selectedPerson} />
+      <ItemDetails
+        selectedId={11}
+        getData={getPerson}
+        getImageUrl={getPersonImage}
+      />
     );
 
     return (

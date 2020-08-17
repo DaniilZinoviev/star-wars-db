@@ -3,8 +3,9 @@
  */
 export default class SwapiService {
   _apiBase = "https://swapi.dev/api";
+  _imageBase = "https://starwars-visualguide.com/assets/img";
   
-  async getResource(url) {
+  getResource = async (url) => {
     const res = await fetch(url);
     if (! res.ok) {
       throw new Error(`Could not fetch ${url}, received ${res.status} code.`)
@@ -13,34 +14,46 @@ export default class SwapiService {
     return body;
   }
 
-  async getAllPeoples() {
+  getAllPeoples = async () => {
     const res = await this.getResource(`${this._apiBase}/people/`);
     return res.results.map((people) => this._transformPeople(people));
   }
 
-  async getPerson(id) {
+  getPerson = async (id) => {
     const people = await this.getResource(`${this._apiBase}/people/${id}/`);
     return this._transformPeople(people);
   }
 
-  async getAllPlanets() {
+  getPersonImage = (id) => {
+    return `${this._imageBase}/characters/${id}.jpg`;
+  }
+
+  getAllPlanets = async () => {
     const res = await this.getResource(`${this._apiBase}/planets/`);
     return res.results.map((planet) => this._transformPlanet(planet));
   }
 
-  async getPlanet(id) {
+  getPlanet = async (id) => {
     const planet = await this.getResource(`${this._apiBase}/planets/${id}/`);
     return this._transformPlanet(planet);
   }
 
-  async getAllSpaceships() {
-    const res = await this.getResource(`${this._apiBase}/vehicles/`);
+  getPlanetImage = (id) => {
+    return `${this._imageBase}/planets/${id}.jpg`;
+  }
+
+  getAllSpaceships = async () => {
+    const res = await this.getResource(`${this._apiBase}/starships/`);
     return res.results.map((spaceship) => this._transformSpaceship(spaceship));
   }
 
-  async getSpaceship(id) {
-    const spaceship = await this.getResource(`${this._apiBase}/vehicles/${id}/`);
+  getSpaceship = async (id) => {
+    const spaceship = await this.getResource(`${this._apiBase}/starships/${id}/`);
     return this._transformSpaceship(spaceship);
+  }
+
+  getSpaceshipImage = (id) => {
+    return `${this._imageBase}/starships/${id}.jpg`;
   }
 
   _extractId(url) {
