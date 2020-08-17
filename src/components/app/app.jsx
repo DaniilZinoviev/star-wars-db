@@ -6,6 +6,7 @@ import RandomPlanet from "../random-planet/random-planet";
 import ItemList from "../item-list/item-list";
 import PersonDetails from "../person-details/person-details";
 import SwapiService from "../../services/SwapiService";
+import Row from "../row/row";
 
 class App extends Component {
   swapiService = new SwapiService();
@@ -29,6 +30,25 @@ class App extends Component {
   }
 
   render() {
+    const itemList = (
+      <ItemList
+        onChangeSelected={(id) => this.onChangeSelected(id)}
+        getData={() => this.swapiService.getAllPeoples()}
+        renderItem={(item) => (
+          <React.Fragment>
+            <span>{item.name}</span>{" "}
+            <em>
+              ({item.birthYear}, {item.gender})
+            </em>
+          </React.Fragment>
+        )}
+      />
+    );
+
+    const details = (
+      <PersonDetails selectedPerson={this.state.selectedPerson} />
+    );
+
     return (
       <div className="app container">
         <Header />
@@ -41,45 +61,7 @@ class App extends Component {
           Toggle random planet
         </button>
 
-        <div className="row mb-2">
-          <div className="col-md-4">
-            <ItemList
-              onChangeSelected={(id) => this.onChangeSelected(id)}
-              getData={() => this.swapiService.getAllPeoples()}
-              renderItem={(item) => (
-                <React.Fragment>
-                  <span>{item.name}</span>{" "}
-                  <em>
-                    ({item.birthYear}, {item.gender})
-                  </em>
-                </React.Fragment>
-              )}
-            />
-          </div>
-          <div className="col-md-8">
-            <PersonDetails selectedPerson={this.state.selectedPerson} />
-          </div>
-        </div>
-
-        <div className="row mb-2">
-          <div className="col-md-4">
-            <ItemList
-              onChangeSelected={(id) => this.onChangeSelected(id)}
-              getData={() => this.swapiService.getAllSpaceships()}
-              renderItem={(item) => (
-                <React.Fragment>
-                  <span>{item.name}</span>{" "}
-                  <em>
-                    ({item.manufacturer})
-                  </em>
-                </React.Fragment>
-              )}
-            />
-          </div>
-          <div className="col-md-8">
-            <PersonDetails selectedPerson={this.state.selectedPerson} />
-          </div>
-        </div>
+        <Row left={itemList} right={details} />
       </div>
     );
   }
