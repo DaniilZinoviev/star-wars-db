@@ -34,9 +34,9 @@ class ItemDetails extends Component {
           <div className="col">
             <h3>{item.name}</h3>
             <ul className="list-group">
-              <li className="list-group-item">Gender: n/a</li>
-              <li className="list-group-item">Birth Year: 33BBY</li>
-              <li className="list-group-item">Eye color: Red</li>
+              {React.Children.map(this.props.children, (child) => {
+                return React.cloneElement(child, { item });
+              })}
             </ul>
           </div>
         </div>

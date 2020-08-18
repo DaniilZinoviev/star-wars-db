@@ -3,6 +3,7 @@ import SwapiService from "../../services/SwapiService";
 
 import Spinner from "../spinner/spinner";
 import ErrorIndicator from "../error-indicator/error-indicator";
+
 import "./random-planet.scss";
 
 class RandomPlanet extends Component {
