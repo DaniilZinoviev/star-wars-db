@@ -5,12 +5,14 @@ import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ErrorBoundary from "../error-boundary/error-boundary";
 import Row from "../row/row";
-import { PlanetList, PeopleList } from "../specific-components/item-lists";
-import {
-  DefaultPersonDetails,
-} from "../specific-components/item-details";
+import { PeopleList } from "../specific-components/item-lists";
+import { DefaultPersonDetails } from "../specific-components/item-details";
+import SwapiContext from "../../contexts/swapi-service-context";
+import SwapiService from "../../services/SwapiService";
 
 class App extends Component {
+  swapiService = new SwapiService();
+
   state = {
     showRandomPlanet: true,
     selectedPersonId: 11,
@@ -32,24 +34,33 @@ class App extends Component {
   render() {
     const { selectedPersonId } = this.state;
 
-    const peopleList = (
-      <PeopleList onChangeSelected={(id) => this.onChangeSelected(id,"selectedPersonId")}>
-        {(item) => item.name}
-      </PeopleList>
-    );
-
     return (
-      <div className="app container">
-        <Header />
+      <ErrorBoundary>
+        <SwapiContext.Provider value={this.swapiService}>
 
-        <RandomPlanet />
+          <div className="app container">
 
-        <ErrorBoundary>
-          <Row
-            left={peopleList}
-            right={<DefaultPersonDetails id={selectedPersonId} />}/>
-        </ErrorBoundary>
-      </div>
+            <Header />
+
+            <RandomPlanet api={this.swapiService} />
+
+            <ErrorBoundary>
+              <Row
+                left={
+                  <PeopleList
+                    onChangeSelected={(id) =>
+                      this.onChangeSelected(id, "selectedPersonId")
+                    }
+                  />
+                }
+                right={<DefaultPersonDetails id={selectedPersonId} />}
+              />
+            </ErrorBoundary>
+
+          </div>
+
+        </SwapiContext.Provider>
+      </ErrorBoundary>
     );
   }
 }

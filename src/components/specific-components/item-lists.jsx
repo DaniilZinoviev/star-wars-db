@@ -1,13 +1,22 @@
-import withData from "../../hocs/withData/with-data";
+import React from "react";
+
+import withData from "../../hocs/with-data";
 import ItemList from "../item-list/item-list";
-import SwapiService from "../../services/SwapiService";
+import withSwapiService from "../../hocs/with-swapi-service";
+import withChildFn from "../../hocs/with-child-fn";
 
-const {
-  getAllPlanets,
-  getAllPeoples,
-  getAllSpaceships
-} = new SwapiService;
 
-export const PlanetList = withData(ItemList, getAllPlanets);
-export const PeopleList = withData(ItemList, getAllPeoples);
-export const SpaceshipList = withData(ItemList, getAllSpaceships);
+const showNameFn = (item) => <span>{item.name}</span>;
+
+export const PlanetList = withSwapiService(
+  withData(withChildFn(ItemList, showNameFn)),
+  ({ getAllPlanets }) => ({ getData: getAllPlanets })
+);
+export const PeopleList = withSwapiService(
+  withData(withChildFn(ItemList, showNameFn)),
+  ({ getAllPeoples }) => ({ getData: getAllPeoples })
+);
+export const SpaceshipList = withSwapiService(
+  withData(withChildFn(ItemList, showNameFn)),
+  ({ getAllStarships }) => ({ getData: getAllStarships })
+);

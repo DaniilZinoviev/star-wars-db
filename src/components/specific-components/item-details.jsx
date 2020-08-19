@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemDetails from "../item-details/item-details";
 import SwapiService from "../../services/SwapiService";
-import withDetailsData from "../../hocs/withData/with-details-data";
+import withDetailsData from "../../hocs/with-details-data";
 import Record from '../record/record';
 
 const {

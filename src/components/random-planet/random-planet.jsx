@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SwapiService from "../../services/SwapiService";
 
 import Spinner from "../spinner/spinner";
 import ErrorIndicator from "../error-indicator/error-indicator";
@@ -7,9 +6,8 @@ import ErrorIndicator from "../error-indicator/error-indicator";
 import "./random-planet.scss";
 
 class RandomPlanet extends Component {
-
-  swapiService = new SwapiService();
   interval = null;
+
   state = {
     isLoading: true,
     hasError: false,
@@ -47,9 +45,10 @@ class RandomPlanet extends Component {
   }
 
   updatePlanet() {
+    const { api } = this.props;
     // Get random planet id
     let id = Math.floor(Math.random() * 13) + 2;
-    this.swapiService
+    api
       .getPlanet(id)
       .then((planet) => this.onPlanetLoaded(planet))
       .catch((error) => this.onError(error));
@@ -78,6 +77,11 @@ class RandomPlanet extends Component {
   }
 }
 
+/**
+ * Helper function to display a Planet
+ * 
+ * @param {Object} planet A planet object 
+ */
 const PlanetView = ({ planet }) => {
   const { id, name, population, rotationPeriod, diameter } = planet;
 
