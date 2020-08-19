@@ -5,10 +5,10 @@ import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ErrorBoundary from "../error-boundary/error-boundary";
 import Row from "../row/row";
-import Record from "../record/record";
-import { PlanetList } from "../specific-components/item-lists";
-import { PersonDetails } from "../specific-components/item-details";
-
+import { PlanetList, PeopleList } from "../specific-components/item-lists";
+import {
+  DefaultPersonDetails,
+} from "../specific-components/item-details";
 
 class App extends Component {
   state = {
@@ -30,18 +30,12 @@ class App extends Component {
   }
 
   render() {
+    const { selectedPersonId } = this.state;
 
     const peopleList = (
-      <PlanetList onChangeSelected={(id) => this.onChangeSelected(id, 'selectedPersonId')}>
+      <PeopleList onChangeSelected={(id) => this.onChangeSelected(id,"selectedPersonId")}>
         {(item) => item.name}
-      </PlanetList>
-    );
-
-    const peopleDetails = (
-      <PersonDetails selectedId={this.state.selectedPersonId}>
-        <Record field="gender" label="Gender" />
-        <Record field="birthYear" label="Birth Year" />
-      </PersonDetails>
+      </PeopleList>
     );
 
     return (
@@ -51,9 +45,10 @@ class App extends Component {
         <RandomPlanet />
 
         <ErrorBoundary>
-          <Row left={peopleList} right={peopleDetails} />
+          <Row
+            left={peopleList}
+            right={<DefaultPersonDetails id={selectedPersonId} />}/>
         </ErrorBoundary>
-        
       </div>
     );
   }

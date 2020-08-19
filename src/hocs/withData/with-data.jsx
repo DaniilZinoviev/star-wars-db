@@ -18,8 +18,6 @@ const withData = (View, getData) => {
         return <Spinner />;
       }
 
-      console.log('withData', this.props);
-
       return <View {...this.props} data={this.state.data} />;
     }
   };

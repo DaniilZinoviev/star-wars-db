@@ -1,7 +1,7 @@
 import React from "react";
 import "./item-list.scss";
 
-const ItemList = ({ data, children }) => {
+const ItemList = ({ onChangeSelected, data, children }) => {
   // Trim to 6 items
   data = data.slice(0, 6);
 
@@ -12,6 +12,7 @@ const ItemList = ({ data, children }) => {
           <li
             className="list-group-item"
             key={item.id}
+            onClick={() => onChangeSelected(item.id)}
           >
             {children(item)}
           </li>

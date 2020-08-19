@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-import Spinner from '../../components/spinner/spinner';
-
+import React, { Component } from "react";
+import Spinner from "../../components/spinner/spinner";
 
 const withDetailsData = (View, getData, getImageUrl) => {
   return class WithDetailsData extends Component {
@@ -10,8 +9,22 @@ const withDetailsData = (View, getData, getImageUrl) => {
     };
 
     componentDidMount() {
-      const { selectedId } = this.props;
-      getData(selectedId).then((item) => {
+      const { id } = this.props;
+      this.updateData(id);
+    }
+
+    componentDidUpdate({id: oldId}) {
+      const {id: newId} = this.props;
+      if (oldId !== newId) {
+        this.updateData(newId);
+      }
+    }
+
+    updateData(id) {
+      // Reset
+      this.setState({ item: null });
+
+      getData(id).then((item) => {
         this.setState({
           item,
           imageUrl: getImageUrl(item.id),

@@ -1,6 +1,8 @@
+import React from 'react';
 import ItemDetails from "../item-details/item-details";
 import SwapiService from "../../services/SwapiService";
 import withDetailsData from "../../hocs/withData/with-details-data";
+import Record from '../record/record';
 
 const {
   getPerson,
@@ -10,7 +12,6 @@ const {
   getPlanet,
   getPlanetImage,
 } = new SwapiService();
-
 
 export const PersonDetails = withDetailsData(
   ItemDetails,
@@ -27,3 +28,12 @@ export const PlanetDetails = withDetailsData(
   getPlanet,
   getPlanetImage
 );
+
+export const DefaultPersonDetails = (props) => {
+  return (
+    <PersonDetails {...props}>
+      <Record field="gender" label="Gender" />
+      <Record field="birthYear" label="Birth Year" />
+    </PersonDetails>
+  );
+};
