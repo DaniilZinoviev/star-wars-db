@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import "./app.scss";
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ErrorBoundary from "../error-boundary/error-boundary";
@@ -9,6 +8,8 @@ import { PeopleList } from "../specific-components/item-lists";
 import { DefaultPersonDetails } from "../specific-components/item-details";
 import SwapiContext from "../../contexts/swapi-service-context";
 import SwapiService from "../../services/SwapiService";
+
+import "./app.scss";
 
 class App extends Component {
   swapiService = new SwapiService();

@@ -42,17 +42,17 @@ export default class SwapiService {
     return `${this._imageBase}/planets/${id}.jpg`;
   }
 
-  getAllSpaceships = async () => {
+  getAllStarships = async () => {
     const res = await this.getResource(`${this._apiBase}/starships/`);
-    return res.results.map((spaceship) => this._transformSpaceship(spaceship));
+    return res.results.map((starship) => this._transformStarship(starship));
   }
 
-  getSpaceship = async (id) => {
-    const spaceship = await this.getResource(`${this._apiBase}/starships/${id}/`);
-    return this._transformSpaceship(spaceship);
+  getStarship = async (id) => {
+    const starship = await this.getResource(`${this._apiBase}/starships/${id}/`);
+    return this._transformStarship(starship);
   }
 
-  getSpaceshipImage = (id) => {
+  getStarshipImage = (id) => {
     return `${this._imageBase}/starships/${id}.jpg`;
   }
 
@@ -84,16 +84,16 @@ export default class SwapiService {
     };
   }
   
-  _transformSpaceship(spaceship) {
+  _transformStarship(starship) {
     // Get id by end digit of the url
-    const id = this._extractId(spaceship.url);
+    const id = this._extractId(starship.url);
     return {
       id,
-      name: spaceship.name,
-      cargoCapacity: spaceship.cargo_capacity,
-      costInCredits: spaceship.cost_in_credits,
-      crew: spaceship.crew,
-      manufacturer: spaceship.manufacturer,
+      name: starship.name,
+      cargoCapacity: starship.cargo_capacity,
+      costInCredits: starship.cost_in_credits,
+      crew: starship.crew,
+      manufacturer: starship.manufacturer,
     };
   }
   
