@@ -3,19 +3,18 @@ import React, { Component } from "react";
 import "./app.scss";
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
-import ItemList from "../item-list/item-list";
-import ItemDetails from "../item-details/item-details";
-import SwapiService from "../../services/SwapiService";
 import ErrorBoundary from "../error-boundary/error-boundary";
 import Row from "../row/row";
 import Record from "../record/record";
+import { PlanetList } from "../specific-components/item-lists";
+import { PersonDetails } from "../specific-components/item-details";
+
 
 class App extends Component {
-  swapiService = new SwapiService();
-
   state = {
     showRandomPlanet: true,
-    selectedId: null,
+    selectedPersonId: 11,
+    selectedSpaceshipId: 11,
   };
 
   toggleRandomPlanet() {
@@ -24,58 +23,25 @@ class App extends Component {
     }));
   }
 
-  onChangeSelected(id) {
+  onChangeSelected(id, key) {
     this.setState({
-      selectedId: id,
+      [key]: id,
     });
   }
 
   render() {
-    const {
-      getPerson,
-      getPersonImage,
-      getSpaceship,
-      getSpaceshipImage,
-      getAllPeoples,
-      getAllSpaceships
-    } = this.swapiService;
 
     const peopleList = (
-      <ItemList
-        onChangeSelected={(id) => this.onChangeSelected(id)}
-        getData={getAllPeoples}
-      >
+      <PlanetList onChangeSelected={(id) => this.onChangeSelected(id, 'selectedPersonId')}>
         {(item) => item.name}
-      </ItemList>
+      </PlanetList>
     );
+
     const peopleDetails = (
-      <ItemDetails
-        selectedId={11}
-        getData={getPerson}
-        getImageUrl={getPersonImage}
-      >
+      <PersonDetails selectedId={this.state.selectedPersonId}>
         <Record field="gender" label="Gender" />
         <Record field="birthYear" label="Birth Year" />
-      </ItemDetails>
-    );
-    const spaceshipList = (
-      <ItemList
-        onChangeSelected={(id) => this.onChangeSelected(id)}
-        getData={getAllSpaceships}
-      >
-        {(item) => item.name}
-      </ItemList>
-    );
-    const spaceshipDetails = (
-      <ItemDetails
-        selectedId={11}
-        getData={getSpaceship}
-        getImageUrl={getSpaceshipImage}
-      >
-        <Record field="manufacturer" label="Manufacturer" />
-        <Record field="cargoCapacity" label="Cargo capacity" />
-        <Record field="costInCredits" label="Cost" />
-      </ItemDetails>
+      </PersonDetails>
     );
 
     return (
@@ -86,10 +52,6 @@ class App extends Component {
 
         <ErrorBoundary>
           <Row left={peopleList} right={peopleDetails} />
-        </ErrorBoundary>
-
-        <ErrorBoundary>
-          <Row left={spaceshipList} right={spaceshipDetails} />
         </ErrorBoundary>
         
       </div>
