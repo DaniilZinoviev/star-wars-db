@@ -26,3 +26,24 @@ export const DefaultPersonDetails = (props) => {
     </PersonDetails>
   );
 };
+
+export const DefaultPlanetDetails = (props) => {
+  return (
+    <PlanetDetails {...props}>
+      <Record field="population" label="Population" />
+      <Record field="diameter" label="Diameter" />
+      <Record field="rotationPeriod" label="Rotation period" />
+    </PlanetDetails>
+  );
+};
+
+export const DefaultStarshipDetails = (props) => {
+  return (
+    <StarshipDetails {...props}>
+      <Record field="manufacturer" label="Manufacturer" />
+      <Record field="crew" label="Crew" />
+      <Record field="cargoCapacity" label="Cargo capacity" />
+      <Record field="costInCredits" label="Cost in credits" />
+    </StarshipDetails>
+  );
+};

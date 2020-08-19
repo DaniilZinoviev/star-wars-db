@@ -16,7 +16,7 @@ export const PeopleList = withSwapiService(
   withData(withChildFn(ItemList, showNameFn)),
   ({ getAllPeoples }) => ({ getData: getAllPeoples })
 );
-export const SpaceshipList = withSwapiService(
+export const StarshipList = withSwapiService(
   withData(withChildFn(ItemList, showNameFn)),
   ({ getAllStarships }) => ({ getData: getAllStarships })
 );
