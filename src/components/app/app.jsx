@@ -21,7 +21,7 @@ class App extends Component {
 
             <Header />
 
-            <RandomPlanet api={this.swapiService} />
+            <RandomPlanet api={this.swapiService}/>
 
             <ErrorBoundary>
               <StarshipPage />

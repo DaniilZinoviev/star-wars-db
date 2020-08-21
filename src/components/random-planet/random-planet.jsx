@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 import Spinner from "../spinner/spinner";
 import ErrorIndicator from "../error-indicator/error-indicator";
@@ -7,6 +8,14 @@ import "./random-planet.scss";
 
 class RandomPlanet extends Component {
   interval = null;
+
+  static defaultProps = {
+    interval: 10000,
+  };
+
+  static propTypes = {
+    interval: PropTypes.number,
+  };
 
   state = {
     isLoading: true,
@@ -21,8 +30,10 @@ class RandomPlanet extends Component {
   };
 
   componentDidMount() {
+    const { interval } = this.props;
+
     this.updatePlanet();
-    this.interval = setInterval(() => this.updatePlanet(), 10000);
+    this.interval = setInterval(() => this.updatePlanet(), interval);
   }
 
   componentWillUnmount() {
@@ -59,13 +70,13 @@ class RandomPlanet extends Component {
 
     let wrapClass = "random-planet jumbotron";
     if (isLoading) {
-      wrapClass   += " loading";
+      wrapClass += " loading";
     }
 
-    const showView        = !(isLoading || hasError);
-    const errorIndicator  = hasError  ? <ErrorIndicator />              : null;
-    const spinner         = isLoading ? <Spinner />                     : null;
-    const content         = showView  ? <PlanetView planet={planet} />  : null;
+    const showView = !(isLoading || hasError);
+    const errorIndicator = hasError ? <ErrorIndicator /> : null;
+    const spinner = isLoading ? <Spinner /> : null;
+    const content = showView ? <PlanetView planet={planet} /> : null;
 
     return (
       <div className={wrapClass}>
@@ -79,8 +90,8 @@ class RandomPlanet extends Component {
 
 /**
  * Helper function to display a Planet
- * 
- * @param {Object} planet A planet object 
+ *
+ * @param {Object} planet A planet object
  */
 const PlanetView = ({ planet }) => {
   const { id, name, population, rotationPeriod, diameter } = planet;
@@ -111,6 +122,13 @@ const PlanetView = ({ planet }) => {
       </div>
     </div>
   );
+};
+
+PlanetView.propTypes = {
+  planet: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }),
 };
 
 export default RandomPlanet;

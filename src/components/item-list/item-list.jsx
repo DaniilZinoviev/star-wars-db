@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import "./item-list.scss";
 
 const ItemList = ({ onChangeSelected, data, children }) => {
@@ -20,6 +22,16 @@ const ItemList = ({ onChangeSelected, data, children }) => {
       </ul>
     </div>
   );
-}
+};
+
+ItemList.defaultProps = {
+  onChangeSelected: () => {},
+};
+
+ItemList.propTypes = {
+  onChangeSelected: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.func.isRequired
+};
 
 export default ItemList;

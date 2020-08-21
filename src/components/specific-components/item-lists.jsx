@@ -11,11 +11,11 @@ const showNameFn = (item) => <span>{item.name}</span>;
 const planetsToProps = ({ getAllPlanets }) => ({
   getData: getAllPlanets,
 });
-const peoplesToProps = ({ getAllPlanets }) => ({
-  getData: getAllPlanets,
+const peoplesToProps = ({ getAllPeoples }) => ({
+  getData: getAllPeoples,
 });
-const starshipsToProps = ({ getAllPlanets }) => ({
-  getData: getAllPlanets,
+const starshipsToProps = ({ getAllStarships }) => ({
+  getData: getAllStarships,
 });
 
 export const PlanetList = compose(
