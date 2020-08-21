@@ -1,22 +1,28 @@
-import React from 'react';
+import React from "react";
 
 import ItemDetails from "../item-details/item-details";
 import withDetailsData from "../../hocs/with-details-data";
-import Record from '../record/record';
-import withSwapiService from '../../hocs/with-swapi-service';
+import Record from "../record/record";
+import withSwapiService from "../../hocs/with-swapi-service";
 
 export const PersonDetails = withSwapiService(
-  withDetailsData(ItemDetails),
-  ({ getPerson, getPersonImage }) => ({ getData: getPerson, getImageUrl: getPersonImage})
-);
+  ({ getPerson, getPersonImage }) => ({
+    getData: getPerson,
+    getImageUrl: getPersonImage,
+  })
+)(withDetailsData(ItemDetails));
 export const StarshipDetails = withSwapiService(
-  withDetailsData(ItemDetails),
-  ({ getStarship, getStarshipImage }) => ({ getData: getStarship, getImageUrl: getStarshipImage})
-);
+  ({ getStarship, getStarshipImage }) => ({
+    getData: getStarship,
+    getImageUrl: getStarshipImage,
+  })
+)(withDetailsData(ItemDetails));
 export const PlanetDetails = withSwapiService(
-  withDetailsData(ItemDetails),
-  ({ getPlanet, getPlanetImage }) => ({ getData: getPlanet, getImageUrl: getPlanetImage})
-);
+  ({ getPlanet, getPlanetImage }) => ({
+    getData: getPlanet,
+    getImageUrl: getPlanetImage,
+  })
+)(withDetailsData(ItemDetails));
 
 export const DefaultPersonDetails = (props) => {
   return (

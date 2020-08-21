@@ -1,6 +1,6 @@
 import React from "react";
 
-const withChildFn = (View, fn) => {
+const withChildFn = (fn) => (View) => {
   return (props) => {
     return <View {...props}>{fn}</View>;
   };
