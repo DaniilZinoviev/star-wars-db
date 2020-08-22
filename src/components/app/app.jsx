@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
@@ -13,44 +13,56 @@ import StarshipPage from "../pages/starship-page";
 import PeoplePage from "../pages/people-page";
 import PlanetPage from "../pages/planet-page";
 import { DefaultStarshipDetails } from "../specific-components/item-details";
+import LoginPage from "../pages/login-page";
+import AdminPage from "../pages/admin-page";
 
-class App extends Component {
-  swapiService = new SwapiService();
+const App = () => {
+  const swapiService = new SwapiService();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  render() {
-    return (
-      <ErrorBoundary>
-        <SwapiContext.Provider value={this.swapiService}>
-          <Router>
-            <div className="app container">
-              <Header />
+  return (
+    <ErrorBoundary>
+      <SwapiContext.Provider value={swapiService}>
+        <Router>
+          <div className="app container">
+            <Header />
 
-              <RandomPlanet api={this.swapiService} />
+            <RandomPlanet api={swapiService} />
 
-              <ErrorBoundary>
-                <Route
-                  path="/"
-                  exact
-                  render={() => <h2>Welcome to Star DB</h2>}
-                />
-                <Route path="/peoples/:id?" component={PeoplePage} />
-                <Route path="/planets/:id?" component={PlanetPage} />
-                <Route path="/starships" exact component={StarshipPage} />
-                <Route
-                  path="/starships/:id"
-                  exact
-                  render={({ match }) => {
-                    const { id } = match.params;
-                    return <DefaultStarshipDetails id={id} />;
-                  }}
-                />
-              </ErrorBoundary>
-            </div>
-          </Router>
-        </SwapiContext.Provider>
-      </ErrorBoundary>
-    );
-  }
-}
+            <ErrorBoundary>
+              <Route
+                path="/"
+                exact
+                render={() => <h2>Welcome to Star DB</h2>}
+              />
+              <Route path="/peoples/:id?" component={PeoplePage} />
+              <Route path="/planets/:id?" component={PlanetPage} />
+              <Route path="/starships" exact component={StarshipPage} />
+              <Route
+                path="/starships/:id"
+                exact
+                render={({ match }) => {
+                  const { id } = match.params;
+                  return <DefaultStarshipDetails id={id} />;
+                }}
+              />
+
+              <Route
+                path="/login"
+                render={() => (
+                  <LoginPage isLoggedIn={isLoggedIn} onLogin={setIsLoggedIn} />
+                )}
+              />
+              <Route
+                path="/admin"
+                render={() => <AdminPage isLoggedIn={isLoggedIn} />}
+              />
+            </ErrorBoundary>
+          </div>
+        </Router>
+      </SwapiContext.Provider>
+    </ErrorBoundary>
+  );
+};
 
 export default App;

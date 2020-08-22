@@ -4,6 +4,29 @@ import { Link } from "react-router-dom";
 import "./header.scss";
 
 const Header = () => {
+  const links = [
+    {
+      label: "Planets",
+      to: "/planets",
+    },
+    {
+      label: "Peoples",
+      to: "/peoples",
+    },
+    {
+      label: "Starships",
+      to: "/starships",
+    },
+    {
+      label: "Login",
+      to: "/login",
+    },
+    {
+      label: "Admin",
+      to: "/admin",
+    },
+  ];
+
   return (
     <div className="header row  align-items-center mb-4 pt-2">
       <div className="col-sm-auto">
@@ -14,21 +37,13 @@ const Header = () => {
 
       <div className="col">
         <ul className="nav mb-0">
-          <li className="nav-item">
-            <Link to="/planets" className="nav-link">
-              Planets
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/peoples" className="nav-link">
-              Peoples
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link to="/starships" className="nav-link">
-              Starships
-            </Link>
-          </li>
+          {links.map(({ label, to }) => (
+            <li className="nav-item">
+              <Link to={to} className="nav-link">
+                {label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

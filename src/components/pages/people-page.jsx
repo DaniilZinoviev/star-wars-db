@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 import Row from "../row/row";
 import { PeopleList } from "../specific-components/item-lists";
