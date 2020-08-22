@@ -1,33 +1,23 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 
 import Row from "../row/row";
 import { PlanetList } from "../specific-components/item-lists";
 import { DefaultPlanetDetails } from "../specific-components/item-details";
+import { withRouter } from "react-router-dom/cjs/react-router-dom.min";
 
-class PlanetPage extends Component {
-  static propTypes = {
-    selectedId: PropTypes.number,
-  };
+const PlanetPage = ({ history, match }) => {
+  return (
+    <Row
+      left={
+        <PlanetList
+          onChangeSelected={(id) => {
+            history.push(`/planets/${id}`);
+          }}
+        />
+      }
+      right={<DefaultPlanetDetails id={match.params.id} />}
+    />
+  );
+};
 
-  state = {
-    selectedId: null,
-  };
-
-  onChangeSelected = (selectedId) => {
-    this.setState({ selectedId });
-  };
-
-  render() {
-    const { selectedId } = this.state;
-
-    return (
-      <Row
-        left={<PlanetList onChangeSelected={this.onChangeSelected} />}
-        right={<DefaultPlanetDetails id={selectedId} />}
-      />
-    );
-  }
-}
-
-export default PlanetPage;
+export default withRouter(PlanetPage);
