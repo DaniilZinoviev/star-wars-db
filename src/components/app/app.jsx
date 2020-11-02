@@ -1,25 +1,19 @@
-import React, { useState } from "react";
-
+import React from "react";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import Header from "../header/header";
 import RandomPlanet from "../random-planet/random-planet";
 import ErrorBoundary from "../error-boundary/error-boundary";
 import SwapiContext from "../../contexts/swapi-service-context";
 import SwapiService from "../../services/SwapiService";
-
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-import "./app.scss";
 import StarshipPage from "../pages/starship-page";
 import PeoplePage from "../pages/people-page";
 import PlanetPage from "../pages/planet-page";
 import { DefaultStarshipDetails } from "../specific-components/item-details";
-import LoginPage from "../pages/login-page";
-import AdminPage from "../pages/admin-page";
-import { Link } from "react-router-dom/cjs/react-router-dom.min";
+import HomePage from "../pages/home-page";
+import "./app.scss";
 
 const App = () => {
   const swapiService = new SwapiService();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <ErrorBoundary>
@@ -32,11 +26,7 @@ const App = () => {
 
             <ErrorBoundary>
               <Switch>
-                <Route
-                  path="/"
-                  exact
-                  render={() => <h2>Welcome to Star DB</h2>}
-                />
+                <Route path="/" exact component={HomePage} />
                 <Route path="/peoples/:id?" component={PeoplePage} />
                 <Route path="/planets/:id?" component={PlanetPage} />
                 <Route path="/starships" exact component={StarshipPage} />
@@ -47,20 +37,6 @@ const App = () => {
                     const { id } = match.params;
                     return <DefaultStarshipDetails id={id} />;
                   }}
-                />
-
-                <Route
-                  path="/login"
-                  render={() => (
-                    <LoginPage
-                      isLoggedIn={isLoggedIn}
-                      onLogin={setIsLoggedIn}
-                    />
-                  )}
-                />
-                <Route
-                  path="/admin"
-                  render={() => <AdminPage isLoggedIn={isLoggedIn} />}
                 />
                 <Route
                   render={() => (

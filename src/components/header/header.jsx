@@ -17,14 +17,6 @@ const Header = () => {
       label: "Starships",
       to: "/starships",
     },
-    {
-      label: "Login",
-      to: "/login",
-    },
-    {
-      label: "Admin",
-      to: "/admin",
-    },
   ];
 
   return (
