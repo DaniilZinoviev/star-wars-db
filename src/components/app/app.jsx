@@ -29,15 +29,7 @@ const App = () => {
                 <Route path="/" exact component={HomePage} />
                 <Route path="/peoples/:id?" component={PeoplePage} />
                 <Route path="/planets/:id?" component={PlanetPage} />
-                <Route path="/starships" exact component={StarshipPage} />
-                <Route
-                  path="/starships/:id"
-                  exact
-                  render={({ match }) => {
-                    const { id } = match.params;
-                    return <DefaultStarshipDetails id={id} />;
-                  }}
-                />
+                <Route path="/starships/:id?" component={StarshipPage} />
                 <Route
                   render={() => (
                     <h2>
