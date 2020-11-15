@@ -1,3 +1,17 @@
-# React project: Star Wars Database
+# Star Wars DB
 
-A project to show different Star Wars details - characters, spaceships, planets etc.
+### Screenshot:
+
+![Screenshot](https://i.imgur.com/p9J4m4p.png)
+
+### Description:
+
+There is a React based application used [Star Wars API](https://swapi.dev/) to show different stars, spaceships, persons etc.
+
+### Main technologies used:
+
+ - React
+ - React router
+ - Fetch
+ - Redux store
+
